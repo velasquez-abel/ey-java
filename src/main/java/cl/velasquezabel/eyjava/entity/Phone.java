@@ -18,12 +18,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class Phone {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
 	
-	@ManyToOne
-	@JoinTable(name="users")
-	@Column(name="user_id")
-	private String userId;
+	@ManyToOne(targetEntity = User.class)
+	private Long userId;
 	
 	@Column(name="number", nullable=false)
 	private String number;	
@@ -32,5 +30,45 @@ public class Phone {
 	private String cityCode;
 	
 	@Column(name="country_code", nullable=false)
-	private String countryCode;	
+	private String countryCode;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public String getCityCode() {
+		return cityCode;
+	}
+
+	public void setCityCode(String cityCode) {
+		this.cityCode = cityCode;
+	}
+
+	public String getCountryCode() {
+		return countryCode;
+	}
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}	
 }
