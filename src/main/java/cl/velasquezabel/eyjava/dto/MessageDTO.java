@@ -1,0 +1,2 @@
+@NotNull
+private String message
