@@ -5,6 +5,9 @@ import cl.velasquezabel.eyjava.dto.UserDTO;
 
 public class UserService{
 
+	protected UserService(){
+		
+	}
 	public MessageDTO insertUser( UserDTO user ){
 		return null;
 	}

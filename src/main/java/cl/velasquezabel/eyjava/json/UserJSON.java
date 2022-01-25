@@ -13,7 +13,6 @@ public final class UserJSON implements Serializable{
 	private String name;
 	private String email;
 	private String password;
-	private String tokenJWT;
 	private String tokenUUID;
 	private List<PhoneJSON> phones;
 	private Date created;
@@ -36,12 +35,6 @@ public final class UserJSON implements Serializable{
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	public String getTokenJWT() {
-		return tokenJWT;
-	}
-	public void setTokenJWT(String tokenJWT) {
-		this.tokenJWT = tokenJWT;
 	}
 	public String getTokenUUID() {
 		return tokenUUID;
