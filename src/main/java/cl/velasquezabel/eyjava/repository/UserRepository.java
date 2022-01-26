@@ -1,11 +1,11 @@
 package cl.velasquezabel.eyjava.repository;
 
-import org.springframework.stereotype.Repository;
+import java.util.UUID;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
 import  cl.velasquezabel.eyjava.entity.User;
 
-@Repository
-public interface UserRepository<User, Long > extends BaseRepository<User, Long>{
-	public User findByJWT(String jwt);
-	public User findByUUID(String uuid);
+public interface UserRepository extends JpaRepository<User, UUID>{
 }

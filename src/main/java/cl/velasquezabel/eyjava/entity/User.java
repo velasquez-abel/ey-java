@@ -2,6 +2,7 @@ package cl.velasquezabel.eyjava.entity;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,7 +24,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="user_id", nullable=false)
-	private Long id;
+	private UUID id;
 
 	@Column(name="full_name", nullable=false)
 	private String fullName;
@@ -40,7 +41,7 @@ public class User {
 	@Column(name="modified_at", nullable=false)
 	private Date modified;
 
-	@Column(name="last_login", nullable=false)
+	@Column(name="last_login", nullable=true)
 	private Date lastLogin;
 
 	@Column(name="is_active", nullable=false)
@@ -52,11 +53,11 @@ public class User {
 	@OneToMany(fetch=FetchType.LAZY ,mappedBy="id", cascade={CascadeType.PERSIST , CascadeType.REMOVE})
 	private List<Phone>phones;
 
-	public Long getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 

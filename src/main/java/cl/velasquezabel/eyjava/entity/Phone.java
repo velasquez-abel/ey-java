@@ -1,5 +1,7 @@
 package cl.velasquezabel.eyjava.entity;
 
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -18,10 +20,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class Phone {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private UUID id;
 	
-	@ManyToOne(targetEntity = User.class)
-	private Long userId;
+	@Column(name="user_id", nullable=false)
+	private UUID userId;
 	
 	@Column(name="number", nullable=false)
 	private String number;	
@@ -32,19 +34,19 @@ public class Phone {
 	@Column(name="country_code", nullable=false)
 	private String countryCode;
 
-	public long getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 
-	public Long getUserId() {
+	public UUID getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Long userId) {
+	public void setUserId(UUID userId) {
 		this.userId = userId;
 	}
 

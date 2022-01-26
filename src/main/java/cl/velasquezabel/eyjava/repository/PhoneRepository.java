@@ -1,9 +1,12 @@
 package cl.velasquezabel.eyjava.repository;
 
-import org.springframework.stereotype.Repository;
+import java.util.UUID;
+
+import org.springframework.data.repository.CrudRepository;
+
+import cl.velasquezabel.eyjava.entity.Phone;
 
 
-@Repository
-public interface PhoneRepository<Phone, Long> extends BaseRepository<Phone, Long>{
+public interface PhoneRepository extends CrudRepository<Phone, UUID>{
 	
 }
