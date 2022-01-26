@@ -116,6 +116,16 @@ public class UserService{
 			userDTO.setLastLogin(u.getLastLogin());
 			userDTO.setActive(u.getActive());
 			listDTO.add(userDTO);
+			List<PhoneDTO> phones = new ArrayList<PhoneDTO>();
+			for( Phone p : u.getPhones()){
+				PhoneDTO dto = new PhoneDTO();
+				dto.setUserID( p.getUserId());
+				dto.setCityCode(p.getCityCode());
+				dto.setCountryCode(p.getCountryCode());
+				dto.setNumber( p.getNumber());
+				phones.add( dto );
+			}
+			userDTO.setPhones(phones);
 		}
 		logger.info( "UserService.lookupAll done" );
 		return listDTO;

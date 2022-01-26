@@ -23,6 +23,8 @@ import cl.velasquezabel.eyjava.logging.LoggingUtil;
 import cl.velasquezabel.eyjava.repository.PhoneRepository;
 import cl.velasquezabel.eyjava.repository.UserRepository;
 import cl.velasquezabel.eyjava.service.ServiceLookup;
+import cl.velasquezabel.eyjava.validation.MailValidator;
+import cl.velasquezabel.eyjava.validation.PasswordValidator;
 
 @RestController
 public class UserController {
@@ -43,6 +45,12 @@ public class UserController {
 		MessageJSON msg = new MessageJSON();
 		logger.debug( "message catched on UserController.create for POST request /user" );
 		try{
+			if( !MailValidator.isValidEmail( userJSON.getEmail())){
+				throw new Exception("unable to save, invalid email format provided");
+			}
+			if( !PasswordValidator.isValid( userJSON.getPassword())){
+				throw new Exception("unable to save, invalid password");
+			}
 			UserDTO userDTO = JSONUtil.getUserDTO(userJSON);
 			MessageDTO msgDTO = ServiceLookup.locateUserService( userRepository ).insertUser(userDTO);
 			msg = JSONUtil.getMessageJSON(msgDTO);
@@ -91,17 +99,40 @@ public class UserController {
 	 * to update a single particular user
 	 * */
 	@PutMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public MessageJSON updateOne( @RequestBody String request){
+	public MessageJSON updateOne( @RequestBody UserJSON userJSON){
 		logger.debug( "message catched on UserController.updateOne for PUT request /user/{id}" );
-		return new MessageJSON();
+		MessageJSON msg = new MessageJSON();
+		try{
+			if( !MailValidator.isValidEmail( userJSON.getEmail())){
+				throw new Exception("unable to save, invalid email format provided");
+			}
+			if( !PasswordValidator.isValid( userJSON.getPassword())){
+				throw new Exception("unable to save, invalid password");
+			}
+			UserDTO userDTO = JSONUtil.getUserDTO(userJSON);
+			MessageDTO msgDTO = ServiceLookup.locateUserService( userRepository ).updateUser(userDTO);
+			msg = JSONUtil.getMessageJSON(msgDTO);
+		}
+		catch(Exception e){
+			msg.setMessage( e.getMessage() );
+		}
+		return msg;
 	}
 	
 	/**
 	 * to remove a single particular user
 	 * */
 	@DeleteMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public MessageJSON delete( @RequestBody String request){
+	public MessageJSON delete( @RequestBody String userID){
 		logger.debug( "message catched on UserController.delete for DELETE request /user/{id}" );
-		return new MessageJSON();
+		MessageJSON msg = new MessageJSON();
+		try{
+			MessageDTO msgDTO = ServiceLookup.locateUserService( userRepository ).deleteUser(userID);
+			msg = JSONUtil.getMessageJSON(msgDTO);
+		}
+		catch(Exception e){
+			msg.setMessage( e.getMessage() );
+		}
+		return msg;
 	}
 }
